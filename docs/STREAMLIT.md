@@ -96,6 +96,8 @@ python -m evidence_streamlit.storage init
 
 Supply `DATABASE_URL` privately through the administrator's environment or local `.streamlit/secrets.toml`. Do not paste credentials into the command line, source code or a support ticket. Use a role with schema creation privileges for this step; the running app can use a separate role with the table/index access required by its operations.
 
+Alternatively, apply the generated [PostgreSQL bootstrap SQL](../deploy/streamlit/schema.sql) in the managed provider's SQL editor. The [activation guide](../deploy/streamlit/README.md) includes execution checks and an app-specific configuration template. The SQL is generated from the same runtime metadata and is checked for drift and exercised against PostgreSQL in CI.
+
 The native schema stores `ccs_cases`, `ccs_audit`, `ccs_corpus`, `ccs_rate_limits` and `ccs_schema_revision`. Initialisation also creates the PostgreSQL GIN index `ccs_corpus_fts` for lexical full-text candidates. Startup checks schema revision 1. The init command bootstraps the schema; it is not a generic migration runner for future versions. Review later schema changes and take a backup before applying them.
 
 Then configure the hosted `DATABASE_URL`, OIDC settings and membership. Confirm a case survives a new authenticated browser session and an app restart. Temporary anonymous records are not copied into PostgreSQL automatically when persistence is enabled.

@@ -111,6 +111,9 @@ class ProviderTests(unittest.TestCase):
         self.assertEqual(model[1]["generationConfig"]["responseJsonSchema"]["type"], "object")
         self.assertEqual(model[1]["generationConfig"]["responseMimeType"], "application/json")
         self.assertNotIn("responseSchema", model[1]["generationConfig"])
+        self.assertEqual(model[1]["generationConfig"]["maxOutputTokens"], 6000)
+        for sampling_parameter in ("temperature", "topP", "topK", "candidateCount"):
+            self.assertNotIn(sampling_parameter, model[1]["generationConfig"])
         self.assertEqual(search[1]["max_results"], 6)
         self.assertEqual(search[1]["include_raw_content"], "text")
         self.assertFalse(search[1]["include_answer"])
