@@ -2,7 +2,9 @@
 
 The repository contains a native Python entry point, `streamlit_app.py`, for Streamlit Community Cloud. The React/Vinext application remains in the repository and has a separate deployment path. Streamlit runs the Python application directly; it does not build, embed or proxy the React application.
 
-This guide describes how to deploy the source. A completed source change, passing tests or an open deployment form does not establish that a Streamlit app is online. Record the actual assigned URL and successful hosted checks after deployment; no Streamlit deployment URL is claimed here.
+The deployed Streamlit application is available at **[evidence-ai-ccs-iimb.streamlit.app](https://evidence-ai-ccs-iimb.streamlit.app/)**. It currently uses temporary session storage with no OIDC, PostgreSQL or live-provider configuration. Synthetic examples, manual investigations, synthetic human review and report exports are available. Live investigation, real-case approval and persistent shared work require the configuration below. Download reports before leaving the session.
+
+The React/Vinext deployment remains separate. Its authentication, database and provider settings are not inherited by Streamlit.
 
 ## Choose the operating mode
 

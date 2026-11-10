@@ -2,11 +2,13 @@
 
 **An evidence-first research workspace for the IIM Bangalore CCS project.**
 
-**Streamlit deployment:** use repository `vishnusrivardhangollakaram-boop/2511202_CCS_IIMB`, branch `main`, entry point `streamlit_app.py`, and Python **3.12** in Streamlit Community Cloud. See the [Streamlit deployment guide](docs/STREAMLIT.md). The native Python application runs synthetic and manual investigations without credentials; live providers, verified reviewers and durable PostgreSQL storage are optional configurations. The React/Cloudflare implementation below remains available separately.
+[Open the Streamlit app](https://evidence-ai-ccs-iimb.streamlit.app/) · [Streamlit deployment guide](docs/STREAMLIT.md) · [Verification](docs/VERIFICATION.md)
 
-[Open the private workspace](https://evidence-ai-ccs-vishnu.playfulmodel2.chatgpt.site) · [Setup](docs/SETUP.md) · [API reference](docs/API.md) · [Verification](docs/VERIFICATION.md)
+The hosted Streamlit app runs in **temporary session mode**. Synthetic examples, manual investigations, synthetic human review and report exports are available. OIDC sign-in, PostgreSQL and live providers are not configured, so live investigation, durable storage, real-case approval and cross-user review are unavailable. Export your work before leaving; session records can be lost on refresh or restart.
 
-The hosted workspace requires its owner’s sign-in. Live providers and the real corpus require the configuration described below.
+**Streamlit deployment:** repository `vishnusrivardhangollakaram-boop/2511202_CCS_IIMB`, branch `main`, entry point `streamlit_app.py`, Python **3.12**.
+
+The separate [React/Cloudflare workspace](https://evidence-ai-ccs-vishnu.playfulmodel2.chatgpt.site) remains available and requires its owner’s ChatGPT sign-in. Its [setup](docs/SETUP.md) and [API reference](docs/API.md) describe that deployment. The real corpus is not bundled with either application.
 
 Evidence AI turns a claim and a collection of sources into an inspectable investigation. It shows which parts of the claim are covered, why evidence qualifies or fails, when another search is needed, and when a human should decide. Automatic verdicts remain preliminary; a reviewer decision is a separate recorded action.
 
