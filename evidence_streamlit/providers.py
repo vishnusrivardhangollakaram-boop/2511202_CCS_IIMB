@@ -359,7 +359,8 @@ async def _generate(
             "systemInstruction": {"parts": [{"text": system}]},
             "contents": [{"role": "user", "parts": parts}],
             "generationConfig": {
-                "temperature": 0,
+                # Gemini 3.x expects default sampling; temperature=0 can degrade
+                # output, and 3.8 migration guidance removes this override.
                 "maxOutputTokens": 6000,
                 "responseMimeType": "application/json",
                 "responseJsonSchema": schema,
