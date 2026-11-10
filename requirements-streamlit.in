@@ -1,0 +1,6 @@
+# Direct runtime requirements. Resolve in a clean Python 3.12 environment,
+# run the Streamlit tests/audit, then refresh requirements-streamlit.lock.txt.
+streamlit[auth]==1.67.0
+httpx==0.28.1
+SQLAlchemy==2.1.8
+psycopg[binary]==3.3.8

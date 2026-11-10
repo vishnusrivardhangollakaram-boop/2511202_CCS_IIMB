@@ -2,6 +2,8 @@
 
 **An evidence-first research workspace for the IIM Bangalore CCS project.**
 
+**Streamlit deployment:** use repository `vishnusrivardhangollakaram-boop/2511202_CCS_IIMB`, branch `main`, entry point `streamlit_app.py`, and Python **3.12** in Streamlit Community Cloud. See the [Streamlit deployment guide](docs/STREAMLIT.md). The native Python application runs synthetic and manual investigations without credentials; live providers, verified reviewers and durable PostgreSQL storage are optional configurations. The React/Cloudflare implementation below remains available separately.
+
 [Open the private workspace](https://evidence-ai-ccs-vishnu.playfulmodel2.chatgpt.site) · [Setup](docs/SETUP.md) · [API reference](docs/API.md) · [Verification](docs/VERIFICATION.md)
 
 The hosted workspace requires its owner’s sign-in. Live providers and the real corpus require the configuration described below.
@@ -20,7 +22,7 @@ The principal contribution is **Step 9, Evidence Sufficiency**, connected to **S
 - Review the sufficiency gate's individual checks, missing information and next action.
 - Inspect advisory message cues such as forwarding pressure or a request for credentials, with the matched wording visible. These cues do not decide truth or change the gate.
 - Use configured live search and model adapters for an actual online investigation.
-- Save cases and audit history in a persistent D1 database.
+- Save cases and audit history in PostgreSQL for Streamlit or D1 for the React/Cloudflare app. Streamlit without database configuration uses temporary session storage.
 - Perform authorised human review with a reason and a decision record that is append-only through the application API.
 - Prepare an authorised historical corpus locally, then import its bounded JSON batches through Method & evaluation with visible progress and cancellation. Source and model verdicts remain separate.
 - Export case reports for inspection and use the methodology documentation to plan a defensible evaluation.
@@ -38,6 +40,19 @@ There are **no embedded API keys** and **no claim of measured real-world detecti
 A scenario is selected by its explicit ID. Arbitrary claim text is never matched to a canned answer by keyword. Search snippets, article counts, and model scores are not treated as proof.
 
 ## Start locally
+
+For the native Streamlit application:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+On Windows, activate with `.venv\Scripts\Activate.ps1` in PowerShell. Without external storage, Streamlit cases live only in the current browser session; export reports before closing it. See [Streamlit deployment](docs/STREAMLIT.md) for authentication, persistent storage and hosting setup.
+
+For the original React/Cloudflare application:
 
 Use **Node.js 22.13 or newer**, the package manager version recorded in `package.json`, and Python 3.10+ only if using the corpus preparation utility. Preserve the committed lockfile.
 
@@ -114,6 +129,7 @@ Unit and integration tests establish the behaviour covered by their assertions. 
 
 | Document | What it covers |
 | --- | --- |
+| [Streamlit deployment](docs/STREAMLIT.md) | Native Python app, Community Cloud, OIDC, optional PostgreSQL and deployment limitations |
 | [Architecture](docs/ARCHITECTURE.md) | Modules, boundaries, storage, state transitions and design decisions |
 | [Setup and deployment](docs/SETUP.md) | Local environment, production identity, secrets, migrations and release process |
 | [Source delivery](docs/DELIVERY.md) | Repository, source packages, release checks and pilot prerequisites |

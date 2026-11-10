@@ -1,0 +1,317 @@
+[
+  {
+    "id": "recycled-photo",
+    "title": "A real photo. The wrong story.",
+    "description": "Trace an authentic flood photograph whose new caption changes its location and date.",
+    "label": "Synthetic example",
+    "category": "Misleading context",
+    "evaluationDate": "2026-11-09T12:00:00Z",
+    "claim": {
+      "text": "This genuine flood photograph was taken in Riverton today, 9 November 2026.",
+      "parts": [
+        "The shared photograph genuinely depicts a flood.",
+        "The shared photograph was taken in Riverton on 9 November 2026."
+      ],
+      "timeSensitive": true,
+      "domain": "Disasters & accidents"
+    },
+    "evidence": [
+      {
+        "id": "photo-authentication",
+        "url": "https://example.org/ccs-fixtures/photo-authentication",
+        "publisher": "Riverton Image Archive (fictional)",
+        "publishedAt": "2026-11-08T10:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.96,
+        "quality": 0.92,
+        "independenceKey": "fictional-photographer-record",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": true,
+        "origin": "demo",
+        "verified": true,
+        "title": "Photographer's authentication note · fictional",
+        "excerpt": "In this fictional exercise, the photographer confirms that the supplied picture is an authentic photograph showing flood water. The archive identifies the image and retains its original publication record.",
+        "claimParts": [
+          "The shared photograph genuinely depicts a flood."
+        ]
+      },
+      {
+        "id": "photo-original",
+        "url": "https://example.org/ccs-fixtures/photo-original",
+        "publisher": "Eastmere Municipal Archive (fictional)",
+        "publishedAt": "2021-05-04T08:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "refutes",
+        "relevance": 0.96,
+        "quality": 0.92,
+        "independenceKey": "fictional-eastmere-original",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": true,
+        "origin": "demo",
+        "verified": true,
+        "title": "Original Eastmere flood photograph, 2021 · fictional",
+        "excerpt": "Synthetic original archive record: this exact photograph was published on 4 May 2021 and shows Eastmere Quay. Its original date and location contradict the caption claiming Riverton on 9 November 2026.",
+        "claimParts": [
+          "The shared photograph was taken in Riverton on 9 November 2026."
+        ],
+        "historicalRefutation": true
+      }
+    ],
+    "expectedDecision": "proceed",
+    "expectedVerdict": "Misleading"
+  },
+  {
+    "id": "verified-transit",
+    "title": "A transit notice with a paper trail.",
+    "description": "Compare a dated primary announcement with independent reporting on a fictional free-bus day.",
+    "label": "Synthetic example",
+    "category": "Supported claim",
+    "evaluationDate": "2026-11-09T12:00:00Z",
+    "claim": {
+      "text": "Riverton municipal buses will be free on 15 November 2026, from 06:00 to 22:00.",
+      "parts": [
+        "Riverton municipal buses will be free on 15 November 2026.",
+        "The free service will run from 06:00 to 22:00."
+      ],
+      "timeSensitive": true,
+      "domain": "Society & other"
+    },
+    "evidence": [
+      {
+        "id": "transit-order",
+        "url": "https://example.org/ccs-fixtures/transit-order",
+        "publisher": "Riverton Transport Office (fictional)",
+        "publishedAt": "2026-11-08T10:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.96,
+        "quality": 0.92,
+        "independenceKey": "fictional-transit-office",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": true,
+        "origin": "demo",
+        "verified": true,
+        "title": "Municipal transport order 2026/41 · fictional",
+        "excerpt": "Fictional municipal order: passenger fares on Riverton municipal bus routes are waived on Sunday, 15 November 2026, between 06:00 and 22:00. The order specifies both the date and operating hours.",
+        "claimParts": [
+          "Riverton municipal buses will be free on 15 November 2026.",
+          "The free service will run from 06:00 to 22:00."
+        ]
+      },
+      {
+        "id": "transit-report",
+        "url": "https://example.org/ccs-fixtures/transit-report",
+        "publisher": "Riverton Daily (fictional)",
+        "publishedAt": "2026-11-08T10:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.96,
+        "quality": 0.84,
+        "independenceKey": "fictional-daily-original-reporting",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": false,
+        "origin": "demo",
+        "verified": true,
+        "title": "Reporter confirms free-bus operating window · fictional",
+        "excerpt": "For this synthetic example, an independently reported interview with depot managers confirms the no-fare day on 15 November. Supervisors separately confirm the six-in-the-morning start and ten-at-night finish for municipal routes.",
+        "claimParts": [
+          "Riverton municipal buses will be free on 15 November 2026.",
+          "The free service will run from 06:00 to 22:00."
+        ]
+      }
+    ],
+    "expectedDecision": "proceed",
+    "expectedVerdict": "True"
+  },
+  {
+    "id": "conflicting-closure",
+    "title": "Two credible sources disagree.",
+    "description": "Route contradictory bridge-status notices to a human reviewer without guessing a verdict.",
+    "label": "Synthetic example",
+    "category": "Human review",
+    "evaluationDate": "2026-11-09T12:00:00Z",
+    "claim": {
+      "text": "Rivergate Bridge is closed to all road traffic on 9 November 2026.",
+      "parts": [
+        "Rivergate Bridge is closed to all road traffic on 9 November 2026."
+      ],
+      "timeSensitive": true,
+      "domain": "Disasters & accidents"
+    },
+    "evidence": [
+      {
+        "id": "bridge-emergency",
+        "url": "https://example.org/ccs-fixtures/bridge-emergency",
+        "publisher": "Riverton Emergency Office (fictional)",
+        "publishedAt": "2026-11-09T09:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.96,
+        "quality": 0.92,
+        "independenceKey": "fictional-emergency-office",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": true,
+        "origin": "demo",
+        "verified": true,
+        "title": "Emergency closure bulletin · fictional",
+        "excerpt": "Synthetic emergency bulletin issued at 09:00: Rivergate Bridge is closed to all road traffic on 9 November 2026 until further notice. This fictional source does not record any later reopening.",
+        "claimParts": [
+          "Rivergate Bridge is closed to all road traffic on 9 November 2026."
+        ]
+      },
+      {
+        "id": "bridge-operator",
+        "url": "https://example.org/ccs-fixtures/bridge-operator",
+        "publisher": "Rivergate Bridge Operator (fictional)",
+        "publishedAt": "2026-11-09T09:15:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "refutes",
+        "relevance": 0.96,
+        "quality": 0.92,
+        "independenceKey": "fictional-bridge-operator",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": true,
+        "origin": "demo",
+        "verified": true,
+        "title": "Bridge operator status at 09:15 · fictional",
+        "excerpt": "Fictional operator status panel: Rivergate Bridge is open to normal road traffic as of 09:15 on 9 November 2026. No explanation reconciles this statement with the emergency office closure bulletin.",
+        "claimParts": [
+          "Rivergate Bridge is closed to all road traffic on 9 November 2026."
+        ]
+      }
+    ],
+    "expectedDecision": "human_review",
+    "expectedVerdict": "Unverifiable"
+  },
+  {
+    "id": "missing-evidence",
+    "title": "A forward without a source.",
+    "description": "Identify what is missing when a library-hours claim has only an unchecked search snippet.",
+    "label": "Synthetic example",
+    "category": "Evidence gap",
+    "evaluationDate": "2026-11-09T12:00:00Z",
+    "claim": {
+      "text": "Riverton Central Library is open until midnight every day starting 9 November 2026.",
+      "parts": [
+        "Riverton Central Library is open until midnight every day starting 9 November 2026."
+      ],
+      "timeSensitive": true,
+      "domain": "Society & other"
+    },
+    "evidence": [
+      {
+        "id": "library-snippet",
+        "url": "https://example.org/ccs-fixtures/library-snippet",
+        "publisher": "Unidentified community account (fictional)",
+        "publishedAt": null,
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.96,
+        "quality": 0.35,
+        "independenceKey": "",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": false,
+        "origin": "demo",
+        "verified": false,
+        "title": "Community post search snippet · fictional",
+        "excerpt": "Synthetic search snippet: someone says the central library now stays open until midnight every day. The post supplies no official timetable, publication date or independently checked source document.",
+        "claimParts": [
+          "Riverton Central Library is open until midnight every day starting 9 November 2026."
+        ]
+      }
+    ],
+    "expectedDecision": "retrieve_more",
+    "expectedVerdict": "Unverifiable"
+  },
+  {
+    "id": "syndicated-rumour",
+    "title": "Three links. One original rumour.",
+    "description": "See why copied reports do not count as independent corroboration.",
+    "label": "Synthetic example",
+    "category": "Source independence",
+    "evaluationDate": "2026-11-09T12:00:00Z",
+    "claim": {
+      "text": "Riverton's lantern festival has been cancelled for 2026.",
+      "parts": [
+        "Riverton's lantern festival has been cancelled for 2026."
+      ],
+      "timeSensitive": true,
+      "domain": "Society & other"
+    },
+    "evidence": [
+      {
+        "id": "festival-copy-a",
+        "url": "https://example.org/ccs-fixtures/festival-copy-a",
+        "publisher": "Fictional community publication A",
+        "publishedAt": "2026-11-08T10:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.88,
+        "quality": 0.72,
+        "independenceKey": "fictional-one-anonymous-original",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": false,
+        "origin": "demo",
+        "verified": true,
+        "title": "Festival cancellation story, edition A · fictional",
+        "excerpt": "Synthetic syndicated report: Riverton's lantern festival has been cancelled for 2026 according to a single anonymous organiser. Each edition copies this same statement without obtaining independent confirmation or an official cancellation notice.",
+        "claimParts": [
+          "Riverton's lantern festival has been cancelled for 2026."
+        ]
+      },
+      {
+        "id": "festival-copy-b",
+        "url": "https://example.org/ccs-fixtures/festival-copy-b",
+        "publisher": "Fictional community publication B",
+        "publishedAt": "2026-11-08T10:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.88,
+        "quality": 0.72,
+        "independenceKey": "fictional-one-anonymous-original",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": false,
+        "origin": "demo",
+        "verified": true,
+        "title": "Festival cancellation story, edition B · fictional",
+        "excerpt": "Synthetic syndicated report: Riverton's lantern festival has been cancelled for 2026 according to a single anonymous organiser. Each edition copies this same statement without obtaining independent confirmation or an official cancellation notice.",
+        "claimParts": [
+          "Riverton's lantern festival has been cancelled for 2026."
+        ]
+      },
+      {
+        "id": "festival-copy-c",
+        "url": "https://example.org/ccs-fixtures/festival-copy-c",
+        "publisher": "Fictional community publication C",
+        "publishedAt": "2026-11-08T10:00:00Z",
+        "retrievedAt": "2026-11-09T12:00:00Z",
+        "stance": "supports",
+        "relevance": 0.88,
+        "quality": 0.72,
+        "independenceKey": "fictional-one-anonymous-original",
+        "contextMatch": true,
+        "temporalMatch": true,
+        "isPrimary": false,
+        "origin": "demo",
+        "verified": true,
+        "title": "Festival cancellation story, edition C · fictional",
+        "excerpt": "Synthetic syndicated report: Riverton's lantern festival has been cancelled for 2026 according to a single anonymous organiser. Each edition copies this same statement without obtaining independent confirmation or an official cancellation notice.",
+        "claimParts": [
+          "Riverton's lantern festival has been cancelled for 2026."
+        ]
+      }
+    ],
+    "expectedDecision": "retrieve_more",
+    "expectedVerdict": "Unverifiable"
+  }
+]

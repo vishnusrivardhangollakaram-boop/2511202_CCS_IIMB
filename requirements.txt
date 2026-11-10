@@ -1,0 +1,2 @@
+# Tested Python 3.12 runtime, including OIDC and PostgreSQL adapters.
+-r requirements-streamlit.lock.txt
