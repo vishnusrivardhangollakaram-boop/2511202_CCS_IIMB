@@ -1,0 +1,64 @@
+{
+  "application": "Evidence AI native Streamlit",
+  "url": "https://evidence-ai-ccs-iimb.streamlit.app/",
+  "verified_at_utc": "2026-11-10T08:43:46.346264+00:00",
+  "initial_deployed_source_commit": "cea406d67380f025e2f2f5b98d409072070f2cc6",
+  "entrypoint": "streamlit_app.py",
+  "branch": "main",
+  "platform": "Streamlit Community Cloud",
+  "observed_runtime": {
+    "python": "3.12.16",
+    "streamlit": "1.67.0",
+    "pyarrow": "24.0.0"
+  },
+  "hosted_checks": [
+    {
+      "check": "Landing screen",
+      "result": "passed; rendered application with session-only notice"
+    },
+    {
+      "check": "Synthetic example assessment",
+      "result": "passed; explicit fictional scenario, two sources, preliminary Misleading verdict"
+    },
+    {
+      "check": "Source display",
+      "result": "passed; provenance, excerpts and claim coverage visible"
+    },
+    {
+      "check": "Synthetic human review",
+      "result": "passed; selected two inspected sources, recorded Misleading with rationale, version advanced to2"
+    },
+    {
+      "check": "Audit history",
+      "result": "passed; creation and review shown as separate events"
+    },
+    {
+      "check": "JSON download",
+      "result": "passed; 31,778byte file parsed, version2, finalVerdict Misleading and two audit snapshots"
+    },
+    {
+      "check": "Case library",
+      "result": "passed; reviewed case retained in current session"
+    },
+    {
+      "check": "Manual unsupported claim",
+      "result": "passed; zero evidence, Unverifiable assessment, missing evidence displayed"
+    }
+  ],
+  "configuration": {
+    "storage": "temporary browser session",
+    "oidc": false,
+    "postgresql": false,
+    "live_providers": false,
+    "private_corpus_loaded": false
+  },
+  "follow_up_in_this_change": [
+    "Pin PyArrow24.0.0 to match the host compatibility adjustment (Apache Arrow issue50471).",
+    "Restore legible sidebar captions using the current Streamlit caption selector."
+  ],
+  "limitations": [
+    "No paid provider calls or external production database were exercised.",
+    "Synthetic practice review does not authorize approval of real cases.",
+    "Session records are temporary; download exports to retain work."
+  ]
+}

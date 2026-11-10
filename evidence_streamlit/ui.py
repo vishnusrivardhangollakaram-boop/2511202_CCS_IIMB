@@ -33,13 +33,14 @@ section[data-testid="stSidebar"] .block-container{padding-top:2rem}
 [data-testid="stSidebar"] [role="radiogroup"] label{padding:.65rem .5rem;border-radius:.5rem;font-size:.97rem}
 [data-testid="stSidebar"] [role="radiogroup"] label:hover{background:#1b3e4b}
 [data-testid="stSidebar"] hr{border-color:#35535e}
-[data-testid="stSidebar"] .stCaption p{color:#b9cbcF}
 h1,h2,h3{color:var(--ink);letter-spacing:-.035em}
 h1{font-weight:650!important;line-height:1.12!important}
 h2{font-size:1.55rem!important;font-weight:650!important}
 h3{font-size:1.13rem!important;font-weight:650!important;letter-spacing:-.02em}
 p,li{line-height:1.65}
 [data-testid="stCaptionContainer"] p{font-size:.83rem;line-height:1.6;color:#60737b}
+.stMain [data-testid="stCaptionContainer"],section[data-testid="stSidebar"] [data-testid="stCaptionContainer"]{opacity:1}
+section[data-testid="stSidebar"] [data-testid="stCaptionContainer"],section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p{color:#b9cbcf}
 [data-testid="stForm"]{background:white;border:1px solid var(--line);padding:1.45rem}
 [data-testid="stVerticalBlockBorderWrapper"]>div{border-radius:.8rem}
 [data-testid="stButton"] button,[data-testid="stDownloadButton"] button,[data-testid="stFormSubmitButton"] button{min-height:2.65rem;font-weight:600;letter-spacing:-.01em}
