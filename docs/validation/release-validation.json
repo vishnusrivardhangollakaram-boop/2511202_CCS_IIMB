@@ -1,0 +1,70 @@
+{
+  "recordedAt": "2026-11-09T09:41:57.794235+00:00",
+  "policyVersion": "ccs-sufficiency-1.0.1",
+  "messageSignalRulesVersion": "ccs-message-signals-1.0.0",
+  "checks": {
+    "format": "passed",
+    "eslint": {
+      "result": "passed",
+      "warnings": 0
+    },
+    "typescript": "passed",
+    "nodeTests": {
+      "passed": 113,
+      "failed": 0
+    },
+    "pythonImporterTests": {
+      "passed": 17,
+      "failed": 0
+    },
+    "syntheticPolicyFixtures": {
+      "passed": 5,
+      "total": 5,
+      "scope": "Fictional policy-routing regression; not factual accuracy"
+    },
+    "productionBuild": "passed",
+    "dependencyAudit": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0
+      },
+      "dependencies": 63,
+      "devDependencies": 547,
+      "optionalDependencies": 144,
+      "totalDependencies": 645
+    }
+  },
+  "browser": {
+    "viewport": "1348 x 926 desktop, managed Chromium preview",
+    "observed": [
+      "Case creation with explicitly selected fictional scenario",
+      "Source and sufficiency display",
+      "Required reviewer evidence selection and attestation",
+      "Saved human decision and audit timeline",
+      "Manual case creation and insufficient-evidence state",
+      "Case reload from persistent storage"
+    ],
+    "limitations": [
+      "Final post-restart browser pass blocked by browser URL-policy restriction.",
+      "Corpus-upload UI and mobile viewport have not been exercised in the browser at this recording.",
+      "Later source changes verified by typecheck, lint, build and regression tests."
+    ]
+  },
+  "notPerformed": [
+    "Paid live-provider smoke test: credentials not supplied",
+    "Import of project corpus: dataset not supplied",
+    "Expert-labelled real-world accuracy evaluation",
+    "Production load test, external penetration test and backup restoration drill"
+  ],
+  "interpretation": "Automated checks establish asserted implementation behaviour. This record does not certify factual accuracy or institutional production readiness.",
+  "hostedChecks": {
+    "privateDeployment": "succeeded",
+    "url": "https://evidence-ai-ccs-vishnu.playfulmodel2.chatgpt.site",
+    "authenticationBoundary": "Owner sign-in wall observed in the browser.",
+    "applicationRender": "Deployment renderer produced the application UI; unsigned API access was denied as intended.",
+    "authenticatedProductionSmokeTest": "Not performed: this browser has no signed-in account."
+  }
+}
