@@ -488,9 +488,14 @@ class SqlRepository:
                 review_status=record.get("reviewStatus", "none"),
                 updated_at=record["updatedAt"],
             )
-            result = connection.execute(
-                statement.on_conflict_do_nothing(index_elements=["owner_id", "request_id"])
-            )
+            # INSERT rowcount is not portable across psycopg/SQLAlchemy result
+            # handling. RETURNING distinguishes a new row from a conflict
+            # directly, including an idempotent request arriving concurrently.
+            inserted_id = connection.execute(
+                statement.on_conflict_do_nothing(
+                    index_elements=["owner_id", "request_id"]
+                ).returning(self.cases.c.id)
+            ).scalar_one_or_none()
             stored = self._decode(
                 connection.execute(
                     self.sa.select(self.cases.c.payload).where(
@@ -504,7 +509,7 @@ class SqlRepository:
                     "idempotency_conflict",
                     "This request identifier was already used for different content.",
                 )
-            created = result.rowcount == 1
+            created = inserted_id is not None
             if created:
                 self._audit_insert(connection, record, actor_id, record["events"][0])
         return stored, created
@@ -512,7 +517,7 @@ class SqlRepository:
     def save(self, previous: dict, record: dict, actor_id: str, event: dict) -> dict:
         payload = checked_case(record)
         with self.transaction() as connection:
-            result = connection.execute(
+            updated_id = connection.execute(
                 self.cases.update()
                 .where(
                     self.cases.c.id == previous["id"],
@@ -527,8 +532,9 @@ class SqlRepository:
                     review_requested=record.get("reviewRequested", False),
                     review_status=record.get("reviewStatus", "none"),
                 )
-            )
-            if result.rowcount != 1:
+                .returning(self.cases.c.id)
+            ).scalar_one_or_none()
+            if updated_id is None:
                 raise WorkspaceError(
                     "version_conflict",
                     "This case changed. Refresh it before submitting your decision.",

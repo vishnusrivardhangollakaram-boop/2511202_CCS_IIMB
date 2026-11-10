@@ -455,6 +455,65 @@ class SqlWorkflowTests(WorkspaceAssertions):
         )
         self.assertEqual(len(second.list_cases()), 1)
 
+    def test_sql_conflicting_insert_returns_existing_case_without_duplicate_audit(self):
+        case = self.owner.create_case(CLAIM, request_id="concurrent-request")
+        original = self.repository.get(self.owner.owner_id, case["id"])
+        competing = {**deepcopy(original), "id": str(uuid4())}
+        retained, created = self.repository.create(competing, self.owner.owner_id)
+        self.assertFalse(created)
+        self.assertEqual(retained["id"], original["id"])
+        self.assertEqual(len(self.owner.export_case(case["id"])["audit"]), 1)
+        conflicting = {**competing, "requestHash": "different-payload"}
+        self.assert_error(
+            "idempotency_conflict", self.repository.create, conflicting, self.owner.owner_id
+        )
+        self.assertEqual(len(self.owner.list_cases()), 1)
+
+    def test_indeterminate_insert_rowcount_preserves_initial_audit_and_live_run(self):
+        # Some real DBAPI/SQLAlchemy INSERT results expose rowcount=-1. Keep
+        # actual SQLite transactions and returned rows, changing only that
+        # optional driver diagnostic to reproduce the PostgreSQL failure.
+        connection_class = self.repository.sa.engine.Connection
+        execute = connection_class.execute
+
+        class IndeterminateInsertResult:
+            rowcount = -1
+
+            def __init__(self, result):
+                self.result = result
+
+            def __getattr__(self, name):
+                return getattr(self.result, name)
+
+        def execute_with_unknown_count(connection, statement, *args, **kwargs):
+            result = execute(connection, statement, *args, **kwargs)
+            return (
+                IndeterminateInsertResult(result)
+                if getattr(statement, "is_insert", False)
+                else result
+            )
+
+        output = {
+            "claim": {"text": CLAIM, "parts": [CLAIM], "timeSensitive": False, "domain": "General"},
+            "evidence": [],
+            "notes": [],
+        }
+        with (
+            patch.object(connection_class, "execute", execute_with_unknown_count),
+            patch(
+                "evidence_streamlit.workspace.investigate_provider", return_value=output
+            ) as provider,
+        ):
+            case = self.owner.create_case(CLAIM, mode="live", request_id="unknown-rowcount")
+            self.assertEqual(case["attempt"], 1)
+            provider.assert_called_once()
+            audit = self.owner.export_case(case["id"])["audit"]
+            self.assertEqual([entry["version"] for entry in audit], [1, 2, 3])
+            self.assertEqual(audit[0]["event"]["type"], "case_created")
+            replay = self.owner.create_case(CLAIM, mode="live", request_id="unknown-rowcount")
+            self.assertEqual(replay["id"], case["id"])
+            provider.assert_called_once()
+
     def test_sql_corpus_batch_rolls_back_and_does_not_cross_owners(self):
         self.assert_error(
             "storage_unavailable",
@@ -576,9 +635,21 @@ class PostgreSQLIntegrationTests(WorkspaceAssertions):
 
     def test_postgres_crud_cas_audit_handoff_and_committed_limits(self):
         case = self.owner.create_case(CLAIM, request_id="pg-idempotency")
+        initial_audit = self.owner.export_case(case["id"])["audit"]
+        self.assertEqual([entry["version"] for entry in initial_audit], [1])
+        self.assertEqual(initial_audit[0]["event"]["type"], "case_created")
         self.assertEqual(
             self.owner.create_case(CLAIM, request_id="pg-idempotency")["id"], case["id"]
         )
+        # Exercise the database conflict branch too, bypassing Workspace's
+        # ordinary replay lookup as two concurrent requests would do.
+        original = self.repository.get(self.user["id"], case["id"])
+        retained, created = self.repository.create(
+            {**original, "id": str(uuid4())}, self.user["id"]
+        )
+        self.assertFalse(created)
+        self.assertEqual(retained["id"], case["id"])
+        self.assertEqual(len(self.owner.export_case(case["id"])["audit"]), 1)
         case = self.owner.add_evidence(case["id"], source(), case["version"])
         self.assert_error("version_conflict", self.owner.add_evidence, case["id"], source(), 1)
         self.assert_error("case_not_found", self.reviewer.get_case, case["id"], review=True)
@@ -587,7 +658,15 @@ class PostgreSQLIntegrationTests(WorkspaceAssertions):
             case["id"], "True", REASON, [case["evidence"][0]["id"]], True, case["version"]
         )
         self.assertEqual(reviewed["finalVerdict"], "True")
-        self.assertEqual(len(self.owner.export_case(case["id"])["audit"]), 4)
+        audit = self.owner.export_case(case["id"])["audit"]
+        self.assertEqual(len(audit), 4)
+        self.assertEqual([entry["version"] for entry in audit], [1, 2, 3, 4])
+        self.assertEqual(
+            [entry["event"]["type"] for entry in audit],
+            ["case_created", "evidence_added", "review_requested", "human_review"],
+        )
+        self.assertEqual(audit[-1]["actor_id"], self.review_user["id"])
+        self.assertEqual(audit[-1]["snapshot"]["finalVerdict"], "True")
         self.repository.rate_limit(self.user["id"], "pg-limit", 1)
         self.assert_error("rate_limit", self.repository.rate_limit, self.user["id"], "pg-limit", 1)
         self.owner.handoff(case["id"], False, reviewed["version"])
