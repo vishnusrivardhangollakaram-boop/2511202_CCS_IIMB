@@ -1,0 +1,5046 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "ccs-sufficiency-1.0.1",
+  "source": {
+    "implementation": "lib/sufficiency.ts",
+    "commit": "9a54cfe1a59aa048fa1a9f5d0a59f4592ef385ff",
+    "generatedBy": "TypeScript reference implementation via esbuild; expected outputs are not hand-written"
+  },
+  "cases": [
+    {
+      "id": "fixture:recycled-photo",
+      "claim": {
+        "text": "This genuine flood photograph was taken in Riverton today, 9 November 2026.",
+        "parts": [
+          "The shared photograph genuinely depicts a flood.",
+          "The shared photograph was taken in Riverton on 9 November 2026."
+        ],
+        "timeSensitive": true,
+        "domain": "Disasters & accidents"
+      },
+      "evidence": [
+        {
+          "id": "photo-authentication",
+          "url": "https://example.org/ccs-fixtures/photo-authentication",
+          "publisher": "Riverton Image Archive (fictional)",
+          "publishedAt": "2026-11-08T10:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.96,
+          "quality": 0.92,
+          "independenceKey": "fictional-photographer-record",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "demo",
+          "verified": true,
+          "title": "Photographer's authentication note · fictional",
+          "excerpt": "In this fictional exercise, the photographer confirms that the supplied picture is an authentic photograph showing flood water. The archive identifies the image and retains its original publication record.",
+          "claimParts": [
+            "The shared photograph genuinely depicts a flood."
+          ]
+        },
+        {
+          "id": "photo-original",
+          "url": "https://example.org/ccs-fixtures/photo-original",
+          "publisher": "Eastmere Municipal Archive (fictional)",
+          "publishedAt": "2021-05-04T08:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "refutes",
+          "relevance": 0.96,
+          "quality": 0.92,
+          "independenceKey": "fictional-eastmere-original",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "demo",
+          "verified": true,
+          "title": "Original Eastmere flood photograph, 2021 · fictional",
+          "excerpt": "Synthetic original archive record: this exact photograph was published on 4 May 2021 and shows Eastmere Quay. Its original date and location contradict the caption claiming Riverton on 9 November 2026.",
+          "claimParts": [
+            "The shared photograph was taken in Riverton on 9 November 2026."
+          ],
+          "historicalRefutation": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "2 of 2 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "2 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 2,
+        "coveredParts": 2,
+        "totalParts": 2,
+        "eligibleEvidenceIds": [
+          "photo-authentication",
+          "photo-original"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Misleading",
+        "explanation": "The evidence supports some parts of the claim and contradicts others. Presenting these parts together creates an inaccurate impression; the cited evidence identifies the distinction.",
+        "evidenceIds": [
+          "photo-authentication",
+          "photo-original"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "fixture:verified-transit",
+      "claim": {
+        "text": "Riverton municipal buses will be free on 15 November 2026, from 06:00 to 22:00.",
+        "parts": [
+          "Riverton municipal buses will be free on 15 November 2026.",
+          "The free service will run from 06:00 to 22:00."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "transit-order",
+          "url": "https://example.org/ccs-fixtures/transit-order",
+          "publisher": "Riverton Transport Office (fictional)",
+          "publishedAt": "2026-11-08T10:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.96,
+          "quality": 0.92,
+          "independenceKey": "fictional-transit-office",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "demo",
+          "verified": true,
+          "title": "Municipal transport order 2026/41 · fictional",
+          "excerpt": "Fictional municipal order: passenger fares on Riverton municipal bus routes are waived on Sunday, 15 November 2026, between 06:00 and 22:00. The order specifies both the date and operating hours.",
+          "claimParts": [
+            "Riverton municipal buses will be free on 15 November 2026.",
+            "The free service will run from 06:00 to 22:00."
+          ]
+        },
+        {
+          "id": "transit-report",
+          "url": "https://example.org/ccs-fixtures/transit-report",
+          "publisher": "Riverton Daily (fictional)",
+          "publishedAt": "2026-11-08T10:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.96,
+          "quality": 0.84,
+          "independenceKey": "fictional-daily-original-reporting",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "demo",
+          "verified": true,
+          "title": "Reporter confirms free-bus operating window · fictional",
+          "excerpt": "For this synthetic example, an independently reported interview with depot managers confirms the no-fare day on 15 November. Supervisors separately confirm the six-in-the-morning start and ten-at-night finish for municipal routes.",
+          "claimParts": [
+            "Riverton municipal buses will be free on 15 November 2026.",
+            "The free service will run from 06:00 to 22:00."
+          ]
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "2 of 2 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "2 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 2,
+        "coveredParts": 2,
+        "totalParts": 2,
+        "eligibleEvidenceIds": [
+          "transit-order",
+          "transit-report"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "transit-order",
+          "transit-report"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "fixture:conflicting-closure",
+      "claim": {
+        "text": "Rivergate Bridge is closed to all road traffic on 9 November 2026.",
+        "parts": [
+          "Rivergate Bridge is closed to all road traffic on 9 November 2026."
+        ],
+        "timeSensitive": true,
+        "domain": "Disasters & accidents"
+      },
+      "evidence": [
+        {
+          "id": "bridge-emergency",
+          "url": "https://example.org/ccs-fixtures/bridge-emergency",
+          "publisher": "Riverton Emergency Office (fictional)",
+          "publishedAt": "2026-11-09T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.96,
+          "quality": 0.92,
+          "independenceKey": "fictional-emergency-office",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "demo",
+          "verified": true,
+          "title": "Emergency closure bulletin · fictional",
+          "excerpt": "Synthetic emergency bulletin issued at 09:00: Rivergate Bridge is closed to all road traffic on 9 November 2026 until further notice. This fictional source does not record any later reopening.",
+          "claimParts": [
+            "Rivergate Bridge is closed to all road traffic on 9 November 2026."
+          ]
+        },
+        {
+          "id": "bridge-operator",
+          "url": "https://example.org/ccs-fixtures/bridge-operator",
+          "publisher": "Rivergate Bridge Operator (fictional)",
+          "publishedAt": "2026-11-09T09:15:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "refutes",
+          "relevance": 0.96,
+          "quality": 0.92,
+          "independenceKey": "fictional-bridge-operator",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "demo",
+          "verified": true,
+          "title": "Bridge operator status at 09:15 · fictional",
+          "excerpt": "Fictional operator status panel: Rivergate Bridge is open to normal road traffic as of 09:15 on 9 November 2026. No explanation reconciles this statement with the emergency office closure bulletin.",
+          "claimParts": [
+            "Rivergate Bridge is closed to all road traffic on 9 November 2026."
+          ]
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "human_review",
+        "score": 90,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "2 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "1 claim part(s) have conflicting eligible evidence and require review."
+          }
+        ],
+        "reasons": [
+          "Material evidence conflicts on the same claim; a reviewer must resolve the conflict."
+        ],
+        "gaps": [
+          "Resolve conflicting evidence: Rivergate Bridge is closed to all road traffic on 9 November 2026."
+        ],
+        "suggestedQueries": [
+          "Rivergate Bridge is closed to all road traffic on 9 November 2026. original source date official statement"
+        ],
+        "independentSources": 2,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "bridge-emergency",
+          "bridge-operator"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. Material evidence conflicts on the same claim; a reviewer must resolve the conflict.",
+        "evidenceIds": [
+          "bridge-emergency",
+          "bridge-operator"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "fixture:missing-evidence",
+      "claim": {
+        "text": "Riverton Central Library is open until midnight every day starting 9 November 2026.",
+        "parts": [
+          "Riverton Central Library is open until midnight every day starting 9 November 2026."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "library-snippet",
+          "url": "https://example.org/ccs-fixtures/library-snippet",
+          "publisher": "Unidentified community account (fictional)",
+          "publishedAt": null,
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.96,
+          "quality": 0.35,
+          "independenceKey": "",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "demo",
+          "verified": false,
+          "title": "Community post search snippet · fictional",
+          "excerpt": "Synthetic search snippet: someone says the central library now stays open until midnight every day. The post supplies no official timetable, publication date or independently checked source document.",
+          "claimParts": [
+            "Riverton Central Library is open until midnight every day starting 9 November 2026."
+          ]
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton Central Library is open until midnight every day starting 9 November 2026.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton Central Library is open until midnight every day starting 9 November 2026. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "fixture:syndicated-rumour",
+      "claim": {
+        "text": "Riverton's lantern festival has been cancelled for 2026.",
+        "parts": [
+          "Riverton's lantern festival has been cancelled for 2026."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "festival-copy-a",
+          "url": "https://example.org/ccs-fixtures/festival-copy-a",
+          "publisher": "Fictional community publication A",
+          "publishedAt": "2026-11-08T10:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.88,
+          "quality": 0.72,
+          "independenceKey": "fictional-one-anonymous-original",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "demo",
+          "verified": true,
+          "title": "Festival cancellation story, edition A · fictional",
+          "excerpt": "Synthetic syndicated report: Riverton's lantern festival has been cancelled for 2026 according to a single anonymous organiser. Each edition copies this same statement without obtaining independent confirmation or an official cancellation notice.",
+          "claimParts": [
+            "Riverton's lantern festival has been cancelled for 2026."
+          ]
+        },
+        {
+          "id": "festival-copy-b",
+          "url": "https://example.org/ccs-fixtures/festival-copy-b",
+          "publisher": "Fictional community publication B",
+          "publishedAt": "2026-11-08T10:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.88,
+          "quality": 0.72,
+          "independenceKey": "fictional-one-anonymous-original",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "demo",
+          "verified": true,
+          "title": "Festival cancellation story, edition B · fictional",
+          "excerpt": "Synthetic syndicated report: Riverton's lantern festival has been cancelled for 2026 according to a single anonymous organiser. Each edition copies this same statement without obtaining independent confirmation or an official cancellation notice.",
+          "claimParts": [
+            "Riverton's lantern festival has been cancelled for 2026."
+          ]
+        },
+        {
+          "id": "festival-copy-c",
+          "url": "https://example.org/ccs-fixtures/festival-copy-c",
+          "publisher": "Fictional community publication C",
+          "publishedAt": "2026-11-08T10:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "stance": "supports",
+          "relevance": 0.88,
+          "quality": 0.72,
+          "independenceKey": "fictional-one-anonymous-original",
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "demo",
+          "verified": true,
+          "title": "Festival cancellation story, edition C · fictional",
+          "excerpt": "Synthetic syndicated report: Riverton's lantern festival has been cancelled for 2026 according to a single anonymous organiser. Each edition copies this same statement without obtaining independent confirmation or an official cancellation notice.",
+          "claimParts": [
+            "Riverton's lantern festival has been cancelled for 2026."
+          ]
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "3 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "3 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "3 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "1 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton's lantern festival has been cancelled for 2026. original source date official statement"
+        ],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "festival-copy-a",
+          "festival-copy-b",
+          "festival-copy-c"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "festival-copy-a",
+          "festival-copy-b",
+          "festival-copy-c"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "zero-evidence",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": false,
+            "detail": "0 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find evidence that directly addresses the stated claim.",
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "strong-primary-support",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "strong-primary-refutation",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "refutes",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "False",
+        "explanation": "The checked evidence contradicts every stated claim part. The conclusion follows from refuting evidence, not from a failure to find support.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "unchecked-high-score-snippet",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 1,
+          "quality": 1,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": false
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "one-secondary-needs-corroboration",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "1 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "unknown-independence",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://reporter.example.org/transport",
+          "publisher": "Independent reporter",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "two-independent-secondary-sources",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.8,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://reporter.example.org/transport",
+          "publisher": "Independent reporter",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.8,
+          "independenceKey": "reporter-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "2 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 2,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "same-publisher-collapse",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://reporter.example.org/transport",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "reporter-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "1 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "same-url-tracking-collapse",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice?utm_source=forward#caption",
+          "publisher": "Independent reporter",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "reporter-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "1 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "same-origin-collapse",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://reporter.example.org/transport",
+          "publisher": "Independent reporter",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "1 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "copied-long-excerpt-collapse",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment. Additional supporting details from the original document.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://reporter.example.org/transport",
+          "publisher": "Independent reporter",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment. Additional supporting details from the original document. Updated.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "reporter-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "1 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "duplicate-evidence-id",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment.",
+          "Duplicate evidence IDs were collapsed before assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a",
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "same-part-conflict",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://reporter.example.org/transport",
+          "publisher": "Independent reporter",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment.",
+          "stance": "refutes",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "reporter-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z",
+        "attempt": 0,
+        "maxAttempts": 4
+      },
+      "expectedGate": {
+        "decision": "human_review",
+        "score": 90,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "2 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "1 claim part(s) have conflicting eligible evidence and require review."
+          }
+        ],
+        "reasons": [
+          "Material evidence conflicts on the same claim; a reviewer must resolve the conflict."
+        ],
+        "gaps": [
+          "Resolve conflicting evidence: Riverton buses are free on Sunday."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 2,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. Material evidence conflicts on the same claim; a reviewer must resolve the conflict.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "partial-coverage",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday.",
+          "Private buses are also included."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 55,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "1 of 2 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "1 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Missing applicable evidence: Private buses are also included.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Private buses are also included. original source date official statement"
+        ],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 2,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "per-part-corroboration-required",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday.",
+          "Private buses are also included."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        },
+        {
+          "id": "record-b",
+          "title": "Official transit notice",
+          "url": "https://reporter.example.org/transport",
+          "publisher": "Independent reporter",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The reporter independently observes signs at bus stops and confirms that the stated Sunday trip requires no ticket or payment.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "reporter-original",
+          "claimParts": [
+            "Private buses are also included."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": false,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 80,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "2 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "2 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "2 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "2 of 2 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "2 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim."
+        ],
+        "gaps": [
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement",
+          "Private buses are also included. original source date official statement"
+        ],
+        "independentSources": 2,
+        "coveredParts": 2,
+        "totalParts": 2,
+        "eligibleEvidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [
+          "record-a",
+          "record-b"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "context-only",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "context",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "wrong-context",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": false,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "wrong-temporal-applicability",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": false,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "stale-support",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2020-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "historical-original-refutation",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2020-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "refutes",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true,
+          "historicalRefutation": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "False",
+        "explanation": "The checked evidence contradicts every stated claim part. The conclusion follows from refuting evidence, not from a failure to find support.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "historical-flag-does-not-exempt-support",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2020-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true,
+          "historicalRefutation": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "static-historical-evidence",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": false,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2020-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "missing-publication-date",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": null,
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "static-unknown-date",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": false,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": null,
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "future-publication",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2027-01-01T00:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "future-retrieval",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2027-01-01T00:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "invalid-date",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "not-a-date",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "custom-freshness-window",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other",
+        "timeWindowDays": 2
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-01T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "publication-after-retrieval",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-08T08:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 1 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Obtain direct evidence with matching context and valid dates; time-sensitive claims require a dated source.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "five-minute-clock-skew",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-09T12:05:00Z",
+          "retrievedAt": "2026-11-09T12:05:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "rfc-publication-date",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "Sun, 08 Nov 2026 09:00:00 GMT",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "numeric-string-quality",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": "0.95",
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "boolean-relevance",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": true,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": false,
+            "detail": "0 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Find evidence that directly addresses the stated claim.",
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "out-of-range-quality",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 2,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "private-source-url",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "http://127.0.0.1/internal",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "javascript-source-url",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "javascript:alert(1)",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "credential-url",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://name:secret@example.org/a",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "budget-exhaustion",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [],
+      "options": {
+        "now": "2026-11-09T12:00:00Z",
+        "attempt": 2,
+        "maxAttempts": 2
+      },
+      "expectedGate": {
+        "decision": "human_review",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": false,
+            "detail": "0 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The bounded retrieval budget is exhausted. Do not turn missing evidence into a false verdict."
+        ],
+        "gaps": [
+          "Find evidence that directly addresses the stated claim.",
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The bounded retrieval budget is exhausted. Do not turn missing evidence into a false verdict.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "empty-claim",
+      "claim": {
+        "text": "",
+        "parts": [],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "human_review",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": false,
+            "detail": "0 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 0 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The input does not identify a verifiable factual claim."
+        ],
+        "gaps": [
+          "Identify at least one nonempty factual claim.",
+          "Find evidence that directly addresses the stated claim.",
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 0,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The input does not identify a verifiable factual claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "fallback-atomic-part",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Riverton buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "unicode-normalised-coverage",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday.",
+          "RIVERTON BUSES ARE FREE ON SUNDAY."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Ｒｉｖｅｒｔｏｎ buses are free on Sunday."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "proceed",
+        "score": 100,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": true,
+            "detail": "1 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": true,
+            "detail": "1 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": true,
+            "detail": "1 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": true,
+            "detail": "1 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": true,
+            "detail": "One checked, high-quality primary record directly covers the full claim; the single-primary exception is recorded."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": true,
+            "detail": "No conflicting eligible stances were found for the same atomic claim part."
+          }
+        ],
+        "reasons": [
+          "The supplied evidence meets this versioned sufficiency policy. Proceed to a preliminary factual assessment."
+        ],
+        "gaps": [],
+        "suggestedQueries": [],
+        "independentSources": 1,
+        "coveredParts": 1,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [
+          "record-a"
+        ],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "True",
+        "explanation": "The checked evidence supports every stated claim part in the supplied context. This is a preliminary assessment based on the cited evidence package.",
+        "evidenceIds": [
+          "record-a"
+        ],
+        "preliminary": true
+      }
+    },
+    {
+      "id": "empty-known-claim-parts",
+      "claim": {
+        "text": "Riverton buses are free on Sunday.",
+        "parts": [
+          "Riverton buses are free on Sunday."
+        ],
+        "timeSensitive": true,
+        "domain": "Society & other"
+      },
+      "evidence": [
+        {
+          "id": "record-a",
+          "title": "Official transit notice",
+          "url": "https://example.org/transit-notice",
+          "publisher": "Transit office",
+          "publishedAt": "2026-11-08T09:00:00Z",
+          "retrievedAt": "2026-11-09T12:00:00Z",
+          "excerpt": "The fictional transit office's dated primary notice explicitly makes Riverton municipal buses free on Sunday.",
+          "stance": "supports",
+          "relevance": 0.95,
+          "quality": 0.95,
+          "independenceKey": "transit-office-original",
+          "claimParts": [
+            "Unrelated statement."
+          ],
+          "contextMatch": true,
+          "temporalMatch": true,
+          "isPrimary": true,
+          "origin": "manual",
+          "verified": true
+        }
+      ],
+      "options": {
+        "now": "2026-11-09T12:00:00Z"
+      },
+      "expectedGate": {
+        "decision": "retrieve_more",
+        "score": 0,
+        "checks": [
+          {
+            "id": "relevance",
+            "label": "Relevant evidence",
+            "passed": false,
+            "detail": "0 item(s) address at least one stated claim part at relevance ≥ 0.65."
+          },
+          {
+            "id": "provenance",
+            "label": "Checked sources",
+            "passed": false,
+            "detail": "0 item(s) have checked provenance, a usable excerpt and quality ≥ 0.65; search snippets alone do not qualify."
+          },
+          {
+            "id": "context",
+            "label": "Context and freshness",
+            "passed": false,
+            "detail": "0 direct item(s) match context and time. 0 checked item(s) are contextual, stale, mistimed or inapplicable."
+          },
+          {
+            "id": "coverage",
+            "label": "Claim coverage",
+            "passed": false,
+            "detail": "0 of 1 atomic claim part(s) have applicable direct evidence."
+          },
+          {
+            "id": "independence",
+            "label": "Source independence",
+            "passed": false,
+            "detail": "0 independent source family/families after duplicate and syndication checks. Each claim part needs two families or a checked high-quality primary record."
+          },
+          {
+            "id": "consistency",
+            "label": "Unresolved contradictions",
+            "passed": false,
+            "detail": "No qualifying direct evidence is available to check for contradictions."
+          }
+        ],
+        "reasons": [
+          "The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+          "1 supplied item(s) did not qualify as direct evidence under this policy."
+        ],
+        "gaps": [
+          "Find evidence that directly addresses the stated claim.",
+          "Check original source material and provenance; snippets or unverified assertions are insufficient.",
+          "Missing applicable evidence: Riverton buses are free on Sunday.",
+          "Find independent corroboration or a checked high-quality primary record covering the full claim."
+        ],
+        "suggestedQueries": [
+          "Riverton buses are free on Sunday. original source date official statement"
+        ],
+        "independentSources": 0,
+        "coveredParts": 0,
+        "totalParts": 1,
+        "eligibleEvidenceIds": [],
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "expectedAssessment": {
+        "verdict": "Unverifiable",
+        "explanation": "The available evidence does not yet justify a factual verdict. The evidence package is incomplete. Perform a targeted additional search before assessing the claim.",
+        "evidenceIds": [],
+        "preliminary": true
+      }
+    }
+  ]
+}

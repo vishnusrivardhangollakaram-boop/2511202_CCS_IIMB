@@ -35,6 +35,11 @@ __pycache__/
 *.pyc
 /.test-build/
 /data/
+.streamlit/secrets.toml
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.sqlite3
 
 # Checkout-local tool state
 /.wrangler/

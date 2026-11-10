@@ -1,0 +1,45 @@
+{
+  "application": "Evidence AI \u2014 native Streamlit deployment",
+  "verified_at_utc": "2026-11-10T08:15:05.740640+00:00",
+  "python": "3.12",
+  "runtime_entrypoint": "streamlit_app.py",
+  "local_validation": {
+    "streamlit_tests": {
+      "run": 172,
+      "passed": 170,
+      "skipped": 2,
+      "failed": 0,
+      "skip_reason": "PostgreSQL integration tests require TEST_DATABASE_URL; configured in CI with PostgreSQL 16"
+    },
+    "corpus_preparation_tests": {
+      "run": 17,
+      "passed": 17
+    },
+    "ruff_lint": "passed",
+    "ruff_format": "passed, 17 Python files",
+    "pip_check": "passed",
+    "compileall": "passed",
+    "http_smoke": {
+      "health": 200,
+      "health_body": "ok",
+      "root": 200
+    },
+    "dependency_audit": {
+      "packages": 43,
+      "known_vulnerabilities": 0
+    }
+  },
+  "limitations": [
+    "Streamlit Community Cloud publication requires the user to sign in to their Streamlit account. No hosted Streamlit URL is claimed in this record.",
+    "UI interactions are validated by Streamlit AppTest. A local cloud-browser preview was blocked by the environment; visual browser QA was not completed.",
+    "Live provider tests use mocks; no paid live calls or private research corpus were used.",
+    "OIDC identity, member/reviewer IDs, provider keys and external PostgreSQL must be configured for persistent live research."
+  ],
+  "ci": {
+    "workflow": ".github/workflows/ci.yml",
+    "postgresql_version": 16,
+    "includes_real_database_tests": true,
+    "local_report_is_not_a_claim_of_completed_ci": true
+  },
+  "regression_note": "PostgreSQL CI exposed an indeterminate INSERT rowcount. Case creation and version-checked updates now use explicit RETURNING results. Local regression verifies the creation audit, initial live call and idempotent replay."
+}
