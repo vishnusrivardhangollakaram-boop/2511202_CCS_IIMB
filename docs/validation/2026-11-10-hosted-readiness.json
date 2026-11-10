@@ -1,0 +1,63 @@
+{
+  "recordedAt": "2026-11-10T07:37:14Z",
+  "scope": "Read-only follow-up on the previously deployed application; no claim that prior regression suites were rerun today.",
+  "verifiedRelease": {
+    "sourceCommit": "5e564df43e521b6a843fcff1af4f6fba5c6367a1",
+    "projectId": "appgprj_6af18b8a846081918ca9fd007ef25dec",
+    "versionId": "appgprj_6af18b8a846081918ca9fd007ef25dec~appgver_92785c8770cc8191909bba183bd58b39",
+    "deploymentId": "appgdep_6af199041db081918cd896481be861bb",
+    "deploymentStatus": "succeeded",
+    "environmentRevision": 0,
+    "audience": "owner-private",
+    "url": "https://evidence-ai-ccs-vishnu.playfulmodel2.chatgpt.site/",
+    "sourceMigrationSet": [
+      "drizzle/0000_public_chameleon.sql",
+      "drizzle/0001_corpus_fts.sql"
+    ]
+  },
+  "checks": {
+    "health": {
+      "path": "/api/health",
+      "httpStatus": 200,
+      "response": {
+        "status": "ok",
+        "storage": "ready",
+        "policyVersion": "ccs-sufficiency-1.0.1"
+      },
+      "establishes": "D1 responds and all five expected application/search tables exist; not a row-level or migration-ledger inspection."
+    },
+    "identityFreeBootstrap": {
+      "path": "/api/bootstrap",
+      "httpStatus": 401,
+      "errorCode": "authentication_required",
+      "result": "passed",
+      "establishes": "A supported service-access request without a visitor identity cannot read the application bootstrap."
+    },
+    "priorValidation": {
+      "file": "release-validation.json",
+      "originalDate": "2026-11-09",
+      "nodeTestsPassed": 113,
+      "pythonTestsPassed": 17,
+      "syntheticFixturesPassed": 5,
+      "rerunOnThisDate": false
+    }
+  },
+  "github": {
+    "repository": "vishnusrivardhangollakaram-boop/2511202_CCS_IIMB",
+    "observedDefaultBranchCommit": "9936e781ad2e767c2c2a9ef60b747a2d080a8bbe",
+    "uploadCompleted": false,
+    "writeResponse": "403 Resource not accessible by integration",
+    "directPushDryRun": "No signed-in GitHub credential; terminal prompt disabled",
+    "connectedAccounts": [
+      "OneEasyStopNew"
+    ]
+  },
+  "notPerformed": [
+    "Signed-in hosted case creation, persistence, review and corpus-upload walkthrough",
+    "Live provider calls: credentials not supplied",
+    "Real corpus import: dataset not supplied",
+    "Expert-labelled real-world accuracy evaluation",
+    "Production load test, external penetration test and backup restoration drill"
+  ],
+  "interpretation": "This record identifies the earlier application release checked. A later documentation-only commit may carry this record without changing which release these observations describe. Tokens and secret values are deliberately excluded."
+}

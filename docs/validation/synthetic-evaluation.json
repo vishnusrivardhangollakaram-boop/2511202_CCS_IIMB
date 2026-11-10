@@ -1,0 +1,49 @@
+{
+  "type": "synthetic_policy_regression",
+  "policyVersion": "ccs-sufficiency-1.0.1",
+  "disclaimer": "These fictional fixtures check routing behavior. They do not measure real-world misinformation accuracy or calibrated confidence.",
+  "scenarios": 5,
+  "passed": 5,
+  "rows": [
+    {
+      "scenario": "recycled-photo",
+      "expectedDecision": "proceed",
+      "decision": "proceed",
+      "expectedVerdict": "Misleading",
+      "verdict": "Misleading",
+      "pass": true
+    },
+    {
+      "scenario": "verified-transit",
+      "expectedDecision": "proceed",
+      "decision": "proceed",
+      "expectedVerdict": "True",
+      "verdict": "True",
+      "pass": true
+    },
+    {
+      "scenario": "conflicting-closure",
+      "expectedDecision": "human_review",
+      "decision": "human_review",
+      "expectedVerdict": "Unverifiable",
+      "verdict": "Unverifiable",
+      "pass": true
+    },
+    {
+      "scenario": "missing-evidence",
+      "expectedDecision": "retrieve_more",
+      "decision": "retrieve_more",
+      "expectedVerdict": "Unverifiable",
+      "verdict": "Unverifiable",
+      "pass": true
+    },
+    {
+      "scenario": "syndicated-rumour",
+      "expectedDecision": "retrieve_more",
+      "decision": "retrieve_more",
+      "expectedVerdict": "Unverifiable",
+      "verdict": "Unverifiable",
+      "pass": true
+    }
+  ]
+}
