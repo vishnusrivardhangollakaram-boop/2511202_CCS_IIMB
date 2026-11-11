@@ -20,6 +20,9 @@ EMPTY_SETTINGS = {
     key: ""
     for key in (
         "DATABASE_URL",
+        "MODEL_PROVIDER",
+        "GROQ_API_KEY",
+        "GROQ_MODEL",
         "GEMINI_API_KEY",
         "TAVILY_API_KEY",
         "GEMINI_MODEL",

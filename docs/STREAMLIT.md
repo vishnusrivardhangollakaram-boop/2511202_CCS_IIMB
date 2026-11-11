@@ -62,8 +62,11 @@ Start with the commented [secrets template](../.streamlit/secrets.example.toml).
 | `REVIEWER_IDS` | IDs permitted to review real cases; also grants workspace membership. An ordinary member cannot acquire this role from a form field. |
 | `DATABASE_URL` | Optional external PostgreSQL connection URL. Missing means temporary session storage. Setting it requires OIDC configuration and an initialised database; storage failures do not silently fall back to an apparently persistent session. |
 | `TAVILY_API_KEY` | Server-side search/extraction credential. Required for live investigation. |
-| `GEMINI_API_KEY` | Server-side model credential. Required for live investigation. |
-| `GEMINI_MODEL` | Explicit model identifier compatible with the adapter's structured-output contract; image intake also needs image support. No model is selected implicitly. |
+| `MODEL_PROVIDER` | `groq` for the free-tier setup, or `gemini`. Omitted/empty retains legacy Gemini configuration compatibility. Providers never fall back to each other. |
+| `GROQ_API_KEY` | Server-side Groq credential; required when selecting `groq`. |
+| `GROQ_MODEL` | Explicit `qwen/qwen3.8-27b`; the Groq adapter supports this text/image model and its structured-output contract. |
+| `GEMINI_API_KEY` | Server-side Gemini credential; required only when selecting `gemini`. |
+| `GEMINI_MODEL` | Explicit compatible Gemini model identifier; required only when selecting `gemini`. |
 | `[auth]` | Single-provider Streamlit OIDC configuration: `redirect_uri`, `cookie_secret`, `client_id`, `client_secret`, `server_metadata_url`. |
 
 Presence checks indicate configured values, not successful authentication, valid provider billing, available quota or a healthy database. Test those connections before describing the deployment as live-ready.
@@ -106,11 +109,19 @@ Configure database backup/restore and retention outside the app. JSON and printa
 
 ## Enable live investigation
 
-Set `TAVILY_API_KEY`, `GEMINI_API_KEY` and `GEMINI_MODEL` as top-level server secrets. A paid live request additionally requires verified OIDC identity, explicit membership and working PostgreSQL persistence. Durable storage keeps the per-user request limits across browser sessions. A signed-in reviewer is a member as well; an anonymous or session-only workspace cannot use live providers even when keys exist.
+For the free-tier setup, set `MODEL_PROVIDER = "groq"`, `GROQ_API_KEY`, `GROQ_MODEL = "qwen/qwen3.8-27b"` and `TAVILY_API_KEY` as top-level server secrets. Select Free in Groq, Researcher Free in Tavily (pay-as-you-go disabled), and Free in Neon. The app cannot determine an account's billing tier from a key, so verify these settings in each dashboard. Do not enable a paid plan or automatic top-ups to bypass quotas.
 
-Live submission sends text, screenshots where selected, search queries and relevant source content to the configured Google/Tavily services. Confirm that this processing is permitted for the material and accounts used. The app does not save raw screenshot bytes as part of its stored case, but extracted text, source excerpts and case history can be retained. Provider-side processing and retention follow the provider accounts' terms and settings.
+The existing Gemini adapter remains available only through its own selection and credentials. Groq errors, exhausted quotas and invalid responses never trigger a Gemini call. The native Groq adapter does not change the separate React application's Gemini integration.
+
+Every live request, including a free-tier request, requires verified OIDC identity, explicit membership and working PostgreSQL persistence. Durable storage keeps the per-user request limits across browser sessions. A signed-in reviewer is a member as well; an anonymous or session-only workspace cannot use live providers even when keys exist.
+
+Live submission sends text, screenshots where selected, search queries and relevant source content to the selected Groq or Google model service and Tavily. Confirm that this processing is permitted for the material and accounts used. The app does not save raw screenshot bytes as part of its stored case, but extracted text, source excerpts and case history can be retained. Provider-side processing and retention follow the provider accounts' terms and settings.
 
 Use a low-stakes claim for the first smoke test. Inspect source URLs, quotation provenance, dates, policy checks and any warning about missing or truncated sources. A configured key is not evidence of a successful live run. Provider failures remain visible; the app does not replace them with a synthetic result.
+
+Groq's Qwen model is currently a preview service. The adapter uses strict structured JSON, instruct mode, at most 1,536 output tokens and a conservative 6,000-unit input allowance (UTF-8 bytes for text/schema plus overhead; 2,048 units per image). This is not exact tokenizer accounting or a guarantee against account-wide quotas. Oversized submitted claims are rejected, never silently shortened. Article intake may use an initial excerpt, with an explicit note. Evidence analysis selects at most three candidate sources and at most the first 720 UTF-8 bytes of each passage; fewer sources may fit when claims or URLs are long. Only passages actually provided to the model can ground its quotations. The interface and report identify this limited scope. Full-document investigation requires opening the original records and adding manual evidence; do not describe the free workflow as exhaustive.
+
+Rate limits and exhausted credits produce a visible error. No hidden retries, paid fallbacks or synthetic replacements occur. Text and image contract tests use mocked responses; a real authenticated live smoke test is still required before activation can be reported complete.
 
 ## Corpus and existing data
 

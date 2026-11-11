@@ -55,7 +55,9 @@ def generated(value, finish="STOP"):
 
 
 class ProviderTests(unittest.TestCase):
-    def run_investigation(self, *, sources=None, findings=None, claim=None, handler=None, **kwargs):
+    def run_investigation(
+        self, *, sources=None, findings=None, claim=None, handler=None, settings=None, **kwargs
+    ):
         calls = []
         model_calls = 0
         sources = [copy.deepcopy(SOURCE)] if sources is None else sources
@@ -66,19 +68,28 @@ class ProviderTests(unittest.TestCase):
             nonlocal model_calls
             body = json.loads(request.content)
             calls.append((request, body))
-            if request.url.host == "generativelanguage.googleapis.com":
+            if request.url.host in ("generativelanguage.googleapis.com", "api.groq.com"):
                 model_calls += 1
             if handler:
                 response = handler(request, body, calls)
                 if response is not None:
                     return response
-            if request.url.host == "generativelanguage.googleapis.com":
+            if request.url.host in ("generativelanguage.googleapis.com", "api.groq.com"):
                 content = (
                     {"findings": findings}
                     if kwargs.get("existing_claim") is not None or model_calls > 1
                     else claim
                 )
-                return httpx.Response(200, json=generated(content))
+                response = (
+                    generated(content)
+                    if request.url.host != "api.groq.com"
+                    else {
+                        "choices": [
+                            {"finish_reason": "stop", "message": {"content": json.dumps(content)}}
+                        ]
+                    }
+                )
+                return httpx.Response(200, json=response)
             if request.url.path == "/extract":
                 return httpx.Response(
                     200,
@@ -90,7 +101,11 @@ class ProviderTests(unittest.TestCase):
 
         client = httpx.AsyncClient(transport=httpx.MockTransport(transport), follow_redirects=False)
         with patch.object(p, "_make_client", return_value=client):
-            result = p.investigate(kwargs.pop("text", CLAIM["text"]), SETTINGS, **kwargs)
+            result = p.investigate(
+                kwargs.pop("text", CLAIM["text"]),
+                SETTINGS if settings is None else settings,
+                **kwargs,
+            )
         return result, calls
 
     def test_configuration_makes_no_requests(self):
