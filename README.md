@@ -85,6 +85,8 @@ The development server prints its local URL. Local development identity is for d
 
 ## Configuration
 
+The native Streamlit app also supports Qwen through Groq for the free-tier deployment. Use `MODEL_PROVIDER=groq`, `GROQ_API_KEY` and `GROQ_MODEL=qwen/qwen3.8-27b` with Tavily Free and Neon Free; see the [Streamlit activation guide](deploy/streamlit/README.md). Groq has explicit excerpt and quota limits. The table below describes the retained React deployment; its Gemini adapter is unchanged.
+
 Secrets stay on the server. Add them to your hosting platform's environment configuration; use ignored local configuration files for development. Do not put credentials in the UI, a URL, a screenshot, source code, or a committed file.
 
 | Variable | Purpose |

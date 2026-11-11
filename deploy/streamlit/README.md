@@ -2,19 +2,21 @@
 
 ## Live activation for the deployed CCS app
 
-The app is at https://evidence-ai-ccs-iimb.streamlit.app/. The checked-in [live configuration template](live-secrets.example.toml) supplies its exact Google sign-in callback and explicitly selects `gemini-3.8-flash`. Every `REPLACE_ME` value is a placeholder. Do not save this example unchanged to the hosted app.
+The app is at https://evidence-ai-ccs-iimb.streamlit.app/. The checked-in [live configuration template](live-secrets.example.toml) supplies its exact Google sign-in callback and explicitly selects Groq with `qwen/qwen3.8-27b`. Every `REPLACE_ME` value is a placeholder. Do not save this example unchanged to the hosted app.
 
 Complete these steps in order:
 
-1. Prepare a dedicated PostgreSQL database and apply the bootstrap below. Keep its connection URL private and retain the provider's required TLS parameters.
+1. Select Neon **Free** and prepare a dedicated PostgreSQL database and apply the bootstrap below. Keep its connection URL private and retain the provider's required TLS parameters.
 2. In Google Auth Platform, create a Web application OAuth client with `https://evidence-ai-ccs-iimb.streamlit.app/oauth2callback` as an authorized redirect URI. Configure the consent screen and permitted test users if the client remains in testing. Community Cloud dashboard sign-in does not configure this app's sign-in.
-3. Obtain a Gemini API key with access to the selected model and a Tavily API key from the respective account dashboards. Confirm provider quotas and budgets. Generate the cookie secret privately using `python -c "import secrets; print(secrets.token_urlsafe(48))"`.
+3. Create a Groq **Free** account and a Tavily **Researcher Free** account, then obtain their API keys. Keep Tavily pay-as-you-go disabled and do not upgrade either account. Verify the plan and quotas in each dashboard; a key alone does not identify its billing tier. Generate the cookie secret privately using `python -c "import secrets; print(secrets.token_urlsafe(48))"`.
 4. Fill the example locally in an ignored file or directly in Community Cloud **App settings → Secrets**. Save only completed values. Start with empty membership lists, sign in, and copy the application's displayed **Your account ID**. Add the intended reviewer ID to `REVIEWER_IDS`; reviewer membership includes workspace access. Add ordinary researchers to `ALLOWED_USER_IDS`.
 5. Verify that the sidebar reports persistent storage and Method reports available live investigation. Create a low-stakes live case, inspect the returned source quotations and URLs, and download its report. Reopen the case after a new authenticated session. A configured key or green presence check alone does not verify provider access or persistence.
 
 This repository does not contain the provider keys, OAuth client credentials, database password, or a populated reviewer identity. Installing a database plugin alone does not configure these settings. Until all connections and the live smoke test succeed, report the deployment as a temporary/manual demonstration.
 
-Google documents the chosen model and existing `generateContent` endpoint in its [model reference](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash) and [text-generation guide](https://ai.google.dev/gemini-api/docs/generate-content/text-generation?hl=en). The adapter omits sampling overrides following the [3.8 migration guidance](https://ai.google.dev/gemini-api/docs/latest-model). This is a compatibility selection, not a claim of measured factual accuracy or a successful credentialed run.
+The selected open model is published on [Hugging Face](https://huggingface.co/Qwen/Qwen3.8-27B), while inference runs on [Groq](https://console.groq.com/docs/model/qwen/qwen3.8-27b). A Hugging Face token is not needed for this path. Groq currently labels it Preview. The adapter uses structured JSON and explicit excerpt limits to keep requests small, and never calls another model service on quota exhaustion. Read the [free-mode scope and limits](../../docs/STREAMLIT.md#enable-live-investigation) before presenting a result.
+
+Account setup requires the account owner's sign-in and acceptance of each provider's terms. No API keys, OAuth credentials or billing settings are created by committing this template. Google application sign-in remains required even though Google Gemini is not used for model inference.
 
 ## Apply the database schema
 

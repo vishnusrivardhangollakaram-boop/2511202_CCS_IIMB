@@ -212,6 +212,8 @@ def render_create(workspace: Workspace) -> None:
             st.caption(
                 "Manual workspace available. Live retrieval requires provider configuration, PostgreSQL storage and an authorized sign-in."
             )
+        if mode == "Live" and caps.get("scope_notice"):
+            st.info(caps["scope_notice"])
         unavailable = input_format != "Text" and (
             mode != "Live" or (input_format == "Screenshot" and not caps.get("ocr"))
         )
@@ -1127,6 +1129,8 @@ def render_method(workspace: Workspace) -> None:
         },
     ]
     st.dataframe(rows, hide_index=True, width="stretch")
+    if caps.get("scope_notice"):
+        st.info(caps["scope_notice"])
     st.subheader("What this system does not establish")
     st.markdown(
         "- A polished explanation does not verify a claim.\n- Several links may copy one original source. Their count does not establish independence.\n- An old fact-check may describe a different claim or context.\n- No matching evidence does not mean a claim is false.\n- Wording cues do not establish deceptive intent.\n- Passing synthetic examples demonstrates workflow behavior, not real-world model accuracy."

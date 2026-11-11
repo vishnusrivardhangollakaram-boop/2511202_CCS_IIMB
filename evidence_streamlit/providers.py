@@ -1,4 +1,4 @@
-"""Bounded server-side Tavily/Gemini adapters; all provider content is untrusted.
+"""Bounded Tavily, Groq and Gemini adapters; provider content is untrusted.
 
 Only provider endpoints receive HTTP requests. Article URLs are passed to Tavily,
 never fetched by this application. ``verified`` means a contiguous quotation was
@@ -31,6 +31,13 @@ REQUEST_TIMEOUT = 25.0
 MAX_CALLS = 5
 SEARCH_URL = "https://api.tavily.com/search"
 EXTRACT_URL = "https://api.tavily.com/extract"
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "qwen/qwen3.8-27b"
+# Conservative UTF-8 byte allowance, not a claim of exact tokenizer accounting.
+# Provider account quotas remain authoritative and can be shared across users.
+GROQ_INPUT_BUDGET = 6000
+GROQ_OUTPUT_TOKENS = 1536
+GROQ_SOURCE_BYTES = 720
 
 
 class ProviderError(Exception):
@@ -277,7 +284,7 @@ async def _request(
             url,
         )
     )
-    if url not in (SEARCH_URL, EXTRACT_URL) and not gemini:
+    if url not in (SEARCH_URL, EXTRACT_URL, GROQ_URL) and not gemini:
         raise ProviderError("invalid_endpoint", "The evidence service endpoint is not allowed.")
     remaining = min(REQUEST_TIMEOUT, budget.deadline - time.monotonic())
     if remaining < 0.05 or budget.calls >= MAX_CALLS:
@@ -308,7 +315,8 @@ async def _request(
             ) as response:
                 if response.status_code == 429:
                     raise ProviderError(
-                        "provider_rate_limit", "The evidence service is rate limited. Retry later."
+                        "provider_rate_limit",
+                        "The evidence service reached its rate or free-plan limit. Retry later or add evidence manually. No fallback provider was called.",
                     )
                 if not 200 <= response.status_code < 300:
                     raise ProviderError(
@@ -351,6 +359,8 @@ async def _generate(
     schema: dict,
     budget: _Budget,
 ) -> Any:
+    if settings.get("MODEL_PROVIDER") == "groq":
+        return await _generate_groq(client, settings, system, parts, schema, budget)
     raw = await _request(
         client,
         f"https://generativelanguage.googleapis.com/v1beta/models/{settings['GEMINI_MODEL']}:generateContent",
@@ -387,6 +397,125 @@ async def _generate(
             "model_invalid",
             "The model returned an invalid analysis. No factual conclusion was produced.",
         ) from None
+
+
+def _groq_input_size(system: str, parts: list, schema: dict) -> int:
+    size = len(system.encode("utf-8")) + len(json.dumps(schema).encode("utf-8")) + 256
+    for part in parts:
+        size += 2048 if "inlineData" in part else len(part["text"].encode("utf-8"))
+    return size
+
+
+def _groq_input_error() -> ProviderError:
+    return ProviderError(
+        "model_input_limit",
+        "This claim or evidence package exceeds the free-model input budget. Submit a shorter factual claim or use manual evidence review. The claim was not silently shortened.",
+    )
+
+
+async def _generate_groq(client, settings, system, parts, schema, budget):
+    if _groq_input_size(system, parts, schema) > GROQ_INPUT_BUDGET:
+        raise _groq_input_error()
+    content = []
+    for part in parts:
+        if "inlineData" in part:
+            image = validate_screenshot(part["inlineData"])
+            content.append(
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:{image['mimeType']};base64,{image['data']}"},
+                }
+            )
+        else:
+            content.append({"type": "text", "text": part["text"]})
+    raw = await _request(
+        client,
+        GROQ_URL,
+        settings["GROQ_API_KEY"],
+        {
+            "model": settings["GROQ_MODEL"],
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": content},
+            ],
+            "response_format": {
+                "type": "json_schema",
+                "json_schema": {"name": "evidence_analysis", "strict": True, "schema": schema},
+            },
+            "reasoning_effort": "none",
+            "max_completion_tokens": GROQ_OUTPUT_TOKENS,
+            "stream": False,
+        },
+        budget,
+    )
+    try:
+        choices = raw["choices"]
+        if not isinstance(choices, list) or len(choices) != 1:
+            raise ValueError
+        choice = choices[0]
+        message = choice["message"]
+        if (
+            choice.get("finish_reason") != "stop"
+            or message.get("refusal")
+            or message.get("tool_calls")
+        ):
+            raise ProviderError(
+                "model_incomplete",
+                "The model did not complete a usable analysis. Try a shorter factual claim or use manual evidence review.",
+            )
+        if not isinstance(message.get("content"), str):
+            raise ValueError
+        return _json_loads(message["content"])
+    except ProviderError:
+        raise
+    except (KeyError, IndexError, TypeError, ValueError, AttributeError):
+        raise ProviderError(
+            "model_invalid",
+            "The model returned invalid analysis. No factual conclusion was produced.",
+        ) from None
+
+
+def _utf8_prefix(value: str, size: int) -> str:
+    return value.encode("utf-8")[:size].decode("utf-8", errors="ignore")
+
+
+def _findings_parts(claim: dict, sources: list[dict]) -> list[dict]:
+    return [
+        {
+            "text": json.dumps(
+                {
+                    "claim": claim,
+                    "sources": [{"sourceIndex": i, **source} for i, source in enumerate(sources)],
+                },
+                ensure_ascii=False,
+            )
+        }
+    ]
+
+
+def _groq_sources(claim: dict, sources: list[dict], notes: list[str]) -> list[dict]:
+    selected = []
+    for source in sources[:3]:
+        bounded = {**source, "title": _utf8_prefix(source["title"], 120)}
+        bounded["rawContent"] = _utf8_prefix(source["rawContent"], GROQ_SOURCE_BYTES)
+        bounded["content"] = (
+            "" if bounded["rawContent"] else _utf8_prefix(source["content"], GROQ_SOURCE_BYTES)
+        )
+        selected.append(bounded)
+    while (
+        selected
+        and _groq_input_size(
+            FINDINGS_INSTRUCTION, _findings_parts(claim, selected), FINDINGS_SCHEMA
+        )
+        > GROQ_INPUT_BUDGET
+    ):
+        selected.pop()
+    if not selected:
+        raise _groq_input_error()
+    notes.append(
+        f"Groq free-tier mode assessed {len(selected)} of {len(sources)} retrieved sources, using at most the first {GROQ_SOURCE_BYTES} UTF-8 bytes of each passage. Titles may be shortened; URLs and the claim are retained. Remaining source text was not assessed; inspect original documents or add manual evidence before relying on a conclusion."
+    )
+    return selected
 
 
 def _date(value: Any) -> str | None:
@@ -618,7 +747,39 @@ async def _investigate(
             parts = [{"text": text}]
             if source_url:
                 article, extraction_notes = await _extract(client, source_url, settings, budget)
-                parts = [{"text": json.dumps({"submittedClaim": text, "articleText": article})}]
+                if settings.get("MODEL_PROVIDER") == "groq":
+                    original_size = len(article.encode("utf-8"))
+                    # Never shorten the submitted claim; only bound retrieved text.
+                    while (
+                        article
+                        and _groq_input_size(
+                            CLAIM_INSTRUCTION,
+                            [
+                                {
+                                    "text": json.dumps(
+                                        {"submittedClaim": text, "articleText": article},
+                                        ensure_ascii=False,
+                                    )
+                                }
+                            ],
+                            CLAIM_SCHEMA,
+                        )
+                        > GROQ_INPUT_BUDGET
+                    ):
+                        article = _utf8_prefix(article, max(0, len(article.encode("utf-8")) - 256))
+                    if not article:
+                        raise _groq_input_error()
+                    if len(article.encode("utf-8")) < original_size:
+                        notes.append(
+                            "Article intake used only an initial excerpt to fit the free-model budget. Remaining article text was not assessed."
+                        )
+                parts = [
+                    {
+                        "text": json.dumps(
+                            {"submittedClaim": text, "articleText": article}, ensure_ascii=False
+                        )
+                    }
+                ]
                 notes.extend(extraction_notes)
             elif image is not None:
                 parts = [
@@ -661,7 +822,7 @@ async def _investigate(
                     unique[source["url"]] = source
         if len(unique) > 10:
             notes.append(
-                "The investigation assessed the first 10 distinct returned sources; additional results were outside its budget."
+                "The investigation retained the first 10 distinct returned sources as candidates; additional results were outside its budget."
             )
         sources = list(unique.values())[:10]
         if not sources:
@@ -669,23 +830,14 @@ async def _investigate(
                 "No usable sources were returned. Absence of evidence does not make a claim false."
             )
             return {"claim": claim, "evidence": [], "notes": list(dict.fromkeys(notes))}
+        if settings.get("MODEL_PROVIDER") == "groq":
+            sources = _groq_sources(claim, sources, notes)
         findings = _findings(
             await _generate(
                 client,
                 settings,
                 FINDINGS_INSTRUCTION,
-                [
-                    {
-                        "text": json.dumps(
-                            {
-                                "claim": claim,
-                                "sources": [
-                                    {"sourceIndex": i, **source} for i, source in enumerate(sources)
-                                ],
-                            }
-                        )
-                    }
-                ],
+                _findings_parts(claim, sources),
                 FINDINGS_SCHEMA,
                 budget,
             )
@@ -713,19 +865,30 @@ def investigate(
     if not isinstance(settings, dict):
         raise ProviderError(
             "not_configured",
-            "Configure server-side TAVILY_API_KEY, GEMINI_API_KEY and GEMINI_MODEL.",
+            "Configure server-side Tavily credentials and an explicitly selected model provider.",
         )
+    provider = settings.get("MODEL_PROVIDER") or "gemini"
+    if provider not in ("gemini", "groq"):
+        raise ProviderError("configuration", "Set MODEL_PROVIDER to groq or gemini.")
+    model_keys = (
+        ("GROQ_API_KEY", "GROQ_MODEL") if provider == "groq" else ("GEMINI_API_KEY", "GEMINI_MODEL")
+    )
     configured = {
         key: settings.get(key, "").strip() if isinstance(settings.get(key, ""), str) else ""
-        for key in ("TAVILY_API_KEY", "GEMINI_API_KEY", "GEMINI_MODEL")
+        for key in ("TAVILY_API_KEY", *model_keys)
     }
     if not all(configured.values()):
         raise ProviderError(
             "not_configured",
-            "Live investigation needs server-side TAVILY_API_KEY, GEMINI_API_KEY and GEMINI_MODEL.",
+            f"Live investigation needs server-side TAVILY_API_KEY, {model_keys[0]} and {model_keys[1]}.",
         )
-    if not re.fullmatch(r"[a-zA-Z0-9._-]{1,100}", configured["GEMINI_MODEL"]):
+    if provider == "groq" and configured["GROQ_MODEL"] != GROQ_MODEL:
+        raise ProviderError("configuration", f"This Groq adapter supports GROQ_MODEL={GROQ_MODEL}.")
+    if provider == "gemini" and not re.fullmatch(
+        r"[a-zA-Z0-9._-]{1,100}", configured["GEMINI_MODEL"]
+    ):
         raise ProviderError("configuration", "Configure a valid GEMINI_MODEL on the server.")
+    configured["MODEL_PROVIDER"] = provider
     if (
         not isinstance(text, str)
         or len(text) > 8000
@@ -768,12 +931,20 @@ def provider_capabilities(settings: dict) -> dict:
         return isinstance(settings.get(key), str) and bool(settings[key].strip())
 
     search = configured("TAVILY_API_KEY")
-    model = configured("GEMINI_API_KEY") and configured("GEMINI_MODEL")
+    provider = settings.get("MODEL_PROVIDER") or "gemini"
+    model = (
+        configured("GROQ_API_KEY") and settings.get("GROQ_MODEL", "").strip() == GROQ_MODEL
+        if provider == "groq" and isinstance(settings.get("GROQ_MODEL", ""), str)
+        else provider == "gemini" and configured("GEMINI_API_KEY") and configured("GEMINI_MODEL")
+    )
     return {
         "live": search and model,
         "search": search,
         "ocr": search and model,
+        "scope_notice": "Free research mode examines short excerpts from up to three sources. Open original documents and add manual evidence when fuller context is needed. Provider quotas may pause research."
+        if provider == "groq"
+        else "",
         "reason": "Live adapters configured. Provider availability is checked when an investigation runs."
         if search and model
-        else "Live investigation needs server-side TAVILY_API_KEY, GEMINI_API_KEY and GEMINI_MODEL. Synthetic examples and manual evidence remain available.",
+        else "Configure Tavily and the selected model provider (Groq or Gemini). Synthetic examples and manual evidence remain available.",
     }
