@@ -24,7 +24,7 @@ pandas==3.1.1
 pillow==13.0.0
 protobuf==7.36.2
 psycopg==3.3.8
-psycopg-binary==3.3.8
+psycopg-binary==3.3.9
 pyarrow==24.0.0
 pycparser==3.12
 pydeck==0.9.3
