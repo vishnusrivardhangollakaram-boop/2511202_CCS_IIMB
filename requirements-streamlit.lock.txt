@@ -23,7 +23,7 @@ packaging==26.3
 pandas==3.1.1
 pillow==13.0.0
 protobuf==7.36.2
-psycopg==3.3.8
+psycopg==3.3.9
 psycopg-binary==3.3.8
 pyarrow==24.0.0
 pycparser==3.12
