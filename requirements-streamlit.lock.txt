@@ -29,7 +29,7 @@ pyarrow==24.0.0
 pycparser==3.12
 pydeck==0.9.3
 python-dateutil==4.0.0
-python-multipart==0.0.33
+python-multipart==0.0.34
 referencing==0.37.0
 requests==2.34.2
 rpds-py==2026.9.1
